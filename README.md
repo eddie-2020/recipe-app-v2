@@ -31,8 +31,8 @@ Edward Yara
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/edward-oluyara/)
 
 Emmanuel Jolugbo
-- [Github](https://github.com/Thermiee)
-- [LinkedIn](https://www.linkedin.com/in/emmanuel-jolugbo/)
+- GitHub: [@Thermiee](https://github.com/Thermiee)
+- LinkedIn: [@emmanuel-jolugbo](https://www.linkedin.com/in/emmanuel-jolugbo/)
 
 ## Contributing :handshake:
 Contributions, issues, and feature requests are welcome!
