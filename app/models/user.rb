@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_many :recipes
   has_many :foods
 
-  validate :name, length: { maximum: 100 }, presence: true
+  validates :name, length: { maximum: 100 }, presence: true
 end
