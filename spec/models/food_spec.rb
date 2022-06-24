@@ -13,7 +13,7 @@ RSpec.describe 'Foods', type: :request do
                       name: 'Apple',
                       measurement_unit: 'grams',
                       price: 1.15,
-                      user: user)
+                      user:)
   end
 
   describe 'GET /foods' do
