@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject do
-    User.create! name: 'Tom', email: 'gordon.tinyefuza1@gmail.com', password: 'godanah', confirmed_at: Time.now
+    User.create! name: 'Edward', email: 'oluyaratosin123@gmail.com', password: 'root20', confirmed_at: Time.now
   end
 
   before { subject.save }
