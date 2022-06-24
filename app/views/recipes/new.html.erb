@@ -1,0 +1,36 @@
+<%= render "shared/header" %>
+  <h1 class="text-center">Add a new Recipe</h1>
+  <%= form_with model: @recipe do |f| %>
+    <div class="container d-flex flex-column align-items-center">
+      <div class="mb-3">
+        <%= f.label :name, class: "fs-5" %>
+        <%= f.text_field :name, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :cooking_time, class: "fs-5" %>
+        <%= f.text_field :cooking_time, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :preperation_time, class: "fs-5" %>
+        <%= f.text_field :preperation_time, class: "form-control"%>
+      </div>
+
+      <div class="form-check form-switch mb-3">
+        <%= f.check_box :public, class: "form-check-input" %>
+        <%= f.label :public, class: "form-check-label" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :description, class: "fs-5" %>
+        <%= f.text_area :description, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.submit class: "btn btn-primary w-100" %>
+      </div>
+    </div>
+  <% end %> 
+<%= render "shared/footer" %>
+   

@@ -1,0 +1,52 @@
+<nav class="navbar d-flex flex-row justify-content-between navbar-expand-lg navbar-dark bg-dark px-5">
+  <a class="navbar-brand" href="/">Super Cook</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse justify-content-end align-items-baseline" id="navbarColor01" style="">
+    <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+      <li class="nav-item <%= active_class(root_path) %>">
+        <%= link_to 'Recipes Home', root_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item <%= active_class(foods_path) %>">
+        <%= link_to 'Foods', foods_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item <%= active_class(recipes_path) %>">
+        <%= link_to 'Recipes', recipes_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item <%= active_class(public_index_path) %>">
+        <%= link_to 'Public Recipes', public_index_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item <%= active_class(general_index_path) %>">
+        <%= link_to 'Shopping List', general_index_path, class: 'nav-link' %>
+      </li>
+    </ul>
+
+    <div class="navbar-nav mr-auto mt-2 mt-lg-0m align-items-baseline">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to 'Edit profile', edit_user_registration_path, class: 'nav-link btn btn-info text-white m-2' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Sign Out", destroy_user_session_path, method: :get, class: 'nav-link btn btn-danger text-white' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class: 'nav-link btn btn-info text-white m-1'  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link btn btn-warning text-dark' %>
+        </li>
+      <% end %>
+      </div>
+  </div>
+</nav>
+
+<div class="container mt-3 text-center">
+  <% if user_signed_in? %>
+    <p class="alert alert-secondary" role="alert">Logged in as <strong><%= current_user.email %></strong>.</p>
+  <% else %>
+    <p class="alert alert-info" role="alert">Please Login<p>
+  <% end %>
+</div>

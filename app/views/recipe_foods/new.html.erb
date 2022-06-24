@@ -1,0 +1,21 @@
+ <%= render "shared/header" %> 
+  <section class="container d-flex flex-column align-items-center">  
+    <h1 class="text-center">Add a new Ingredient</h1>
+
+    <%= form_with model: [@recipe, @recipe.recipeFoods.create] do |f| %>
+      <div class="mb-3">
+        <%= f.label :food%>
+        <%= f.select :food_id, current_user.foods.collect { |food| [food.name, food.id]}, {include_blank: true}, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :quantity %>
+        <%= f.number_field :quantity, class: "form-control", required: true, placeholder: '1',  min: 1 %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.submit class: "btn btn-primary mt-2 w-100" %>
+      </div>
+    <%end%>
+  </section>
+<%= render "shared/footer" %>

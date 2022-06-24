@@ -1,0 +1,28 @@
+<%= render "shared/header" %>
+  <section class="container d-flex flex-column align-items-center">  
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <h1 class="text-center">Add a new Food</h1>
+
+    <%= form_with model: @food do |f| %>
+      <div class="mb-3">
+        <%= f.label :name, class: "fs-5" %>
+        <%= f.text_field :name, required: true, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :measurement_unit, class: "fs-5" %>
+        <%= f.text_field :measurement_unit, required: true, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :price, class: "fs-5" %>
+        <%= f.number_field :price, required: true, min: 1, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.submit class: "btn btn-primary mt-2 w-100" %>
+      </div>
+    <% end %>
+  </section>
+<%= render "shared/footer" %>

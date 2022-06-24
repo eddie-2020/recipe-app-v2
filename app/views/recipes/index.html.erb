@@ -1,0 +1,23 @@
+<%= render "shared/header" %>
+  <div class="container">
+    <div class="add-btn">
+      <%= link_to 'recipes/new', :remote => true do %>
+      <input type="button" class="btn btn-primary mb-4" value="Add Recipe">
+      <% end %>
+    </div>
+
+      <% @recipes.each do |recipe| %>
+        <div class= "border border-1 shadow-sm p-3 d-flex justify-content-between mt-3">
+          <div>
+            <%= link_to recipe_path(recipe.id), :remote => true do %>
+            <h2><%=recipe.name%></h2>
+            <% end %>
+            <%= button_to "REMOVE", recipe_path(recipe.id), html: {'data-turbo' => "false"}, :method => :delete, class: "btn btn-danger" %>
+          </div>
+
+          <p class="fs-5"><%=recipe.description%></p>
+
+        </div>
+      <% end %>
+  </div>
+<%= render "shared/footer" %>
