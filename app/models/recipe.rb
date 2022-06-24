@@ -1,10 +1,24 @@
 class Recipe < ApplicationRecord
   belongs_to :user
-  has_many :recipe_foods
-
+  has_many :recipeFoods, dependent: :destroy
   validates :name, presence: true
-  validates :preparation_time, numericality: { in: 1..1440 }
-  validates :cooking_time, numericality: { in: 1..1440 }
-  validates :description, length: { in: 1..200 }
-  validates :public, exclusion: [nil]
+  validates :description, presence: true
+  validates :cooking_time, presence: true
+  validates :preperation_time, presence: true
+
+  def self.total_value(id)
+    recipe = Recipe.find(id)
+    recipe_foods = recipe.recipeFoods
+    @total = recipe_foods.map { |x| RecipeFood.value(x.id) }.reduce(:+)
+    @total = if @total.nil?
+               0
+             else
+               @total
+             end
+  end
+
+  def self.items(id)
+    recipe = Recipe.find(id)
+    recipe.recipeFoods.count
+  end
 end

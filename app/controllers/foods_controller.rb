@@ -1,44 +1,40 @@
-class FoodsController < ApplicationController
-  before_action :authenticate_user!
-  load_and_authorize_resource
-
+class FoodsController < ActionController::Base
   def index
     @foods = Food.all
   end
 
-  def show
-    @food = Food.find(params[:id])
-  end
-
   def new
-    @food = Food.new
+    @user = current_user
+    @food = @user.foods.new
   end
 
   def create
-    @food = Food.new(food_params)
+    @user = current_user
+    food = @user.foods.new(food_params)
     respond_to do |format|
-      if @food.save
-        format.html { redirect_to foods_path, notice: 'Food created successfully!' }
-      else
-        format.html { render action: 'new', alert: 'Something went wrong! Food was not created!' }
+      format.html do
+        if food.save
+          flash[:success] = 'Food created successfully'
+          redirect_to foods_url
+        else
+          flash.now[:error] = 'Error: Food could not be created'
+          render :new
+        end
       end
     end
   end
 
   def destroy
-    @food = Food.find(params[:id]).destroy
-    if @food.destroyed?
-      redirect_to foods_path, notice: 'Food successfully deleted!'
-    else
-      redirect_to foods_path, alert: 'Food is not deleted!'
-    end
+    @user = current_user
+    @food = @user.foods.find(params[:id])
+    @food.destroy
+    redirect_to foods_path
+    flash[:success] = 'Food was deleted!'
   end
 
   private
 
   def food_params
-    food_hash = params.require(:food).permit(:name, :measurement_unit, :price)
-    food_hash[:user] = current_user
-    food_hash
+    params.require(:food).permit(:name, :measurement_unit, :price)
   end
 end

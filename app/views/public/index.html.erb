@@ -1,0 +1,21 @@
+<%= render "shared/header" %>
+  <section class="container">
+    <h1 class="text-center">Public Recipes</h1>
+
+    <% @recipes.each do |recipe| %>
+      <div class= "border p-3 shadow-sm boder-1 mt-3 d-flex justify-content-between">
+        <div>
+          <%= link_to recipe_path(recipe.id), :remote => true do %>
+            <h3><%=recipe.name%></h3>
+          <%end%>
+            <h5>By: <%=recipe.user.name%></h5>
+        </div>
+
+        <div>
+          <p class="fs-5">Total food Items: <%=Recipe.items(recipe.id)%></p>
+          <p class="fs-5">Total Price: $<%=Recipe.total_value(recipe.id)%></p>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<%= render "shared/footer"%>

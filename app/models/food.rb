@@ -1,8 +1,8 @@
 class Food < ApplicationRecord
   belongs_to :user
-  has_many :recipe_foods, dependent: :delete_all
-
+  has_many :inventoryFoods, dependent: :destroy
+  has_many :recipeFoods, dependent: :destroy
   validates :name, presence: true
   validates :measurement_unit, presence: true
-  validates :price, comparison: { greater_than: 0.0 }, numericality: true
+  validates :price, numericality: { greater_than: 0 }
 end
