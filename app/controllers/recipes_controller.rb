@@ -30,13 +30,11 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.destroy(params[:id])
+    recipe = Recipe.find(params[:id])
+    return unless recipe.present? && recipe.user == current_user
 
-    if @recipe.destroyed?
-      redirect_to recipes_path, alert: 'Successfully deleted recipe'
-    else
-      render :new, alert: 'Could not delete recipe'
-    end
+    recipe.destroy!
+    redirect_to recipes_path
   end
 
   def public_recipes

@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'Foods', type: :request do
   Food.delete_all
-  User.delete_all
+  User
   let(:user) do
-    FactoryBot.create(:user, name: 'Emmanuel', email: 'thermie@mail.com', password: 'password',
+    FactoryBot.create(:user, name: 'User', email: 'user@mail.com', password: 'password',
                              password_confirmation: 'password')
   end
   let(:food) do
