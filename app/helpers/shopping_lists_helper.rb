@@ -9,7 +9,6 @@ module ShoppingListsHelper
       end
       total_value
     end
-    
     private
 
     def food(id)
