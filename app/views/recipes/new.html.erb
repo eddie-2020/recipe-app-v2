@@ -1,40 +1,36 @@
-<div class="container d-flex flex-column align-items-center">
-  <h2>Add new recipe:</h2>
-  <%= turbo_frame_tag @recipe do %>
-    <%= form_with model: @recipe do |form| %>
-      <% if @recipe.errors.any? %>
-        <div class="alert alert-danger mt-4" role="alert">
-          <% @recipe.errors.full_messages.each do |message| %>
-            <div><%= message %></div>
-          <% end %>
-        </div>
-      <% end %>
-      <div class="form-group mb-3">
-        <%= form.label :name %>
-        <%= form.text_field :name, class: "form-control" , required: true %>
+<%= render "shared/header" %>
+  <h1 class="text-center">Add a new Recipe</h1>
+  <%= form_with model: @recipe do |f| %>
+    <div class="container d-flex flex-column align-items-center">
+      <div class="mb-3">
+        <%= f.label :name, class: "fs-5" %>
+        <%= f.text_field :name, class: "form-control"%>
       </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :description %>
-        <%= form.text_area :description, class: "form-control", required: true %>
+      <div class="mb-3">
+        <%= f.label :cooking_time, class: "fs-5" %>
+        <%= f.text_field :cooking_time, class: "form-control"%>
       </div>
 
-      <div class="form-group mb-3">
-        <%= form.label :cooking_time %>
-        <%= form.number_field :cooking_time, step: 1, class: "form-control", required: true %>
-      </div>
-
-      <div class="form-group mb-3">
-        <%= form.label :preparation_time %>
-        <%= form.number_field :preparation_time, step: 1, class: "form-control", required: true %>
+      <div class="mb-3">
+        <%= f.label :preperation_time, class: "fs-5" %>
+        <%= f.text_field :preperation_time, class: "form-control"%>
       </div>
 
       <div class="form-check form-switch mb-3">
-        <%= form.label :public, class: "form-check-label" %>
-        <%= form.check_box :public, class: "form-check-input" %>
+        <%= f.check_box :public, class: "form-check-input" %>
+        <%= f.label :public, class: "form-check-label" %>
       </div>
 
-      <%= form.submit "Create", data: { turbo: false }, class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
-</div>
+      <div class="mb-3">
+        <%= f.label :description, class: "fs-5" %>
+        <%= f.text_area :description, class: "form-control"%>
+      </div>
+
+      <div class="mb-3">
+        <%= f.submit class: "btn btn-primary w-100" %>
+      </div>
+    </div>
+  <% end %> 
+<%= render "shared/footer" %>
+   

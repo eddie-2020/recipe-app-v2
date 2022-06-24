@@ -1,15 +1,17 @@
 class Ability
   include CanCan::Ability
+
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    #
-    user ||= User.new
-    can :read, Recipe, public: true
-    can :read, Food
-    return unless user.present?
 
-    can :manage, Recipe, user_id: user.id
-    can :manage, Food, user_id: user.id
+    user ||= User.new # guest user (not logged in)
+    if user.role == 'admin'
+      can :manage, :all
+    else
+      can :manage, Food, user_id: user.id
+      can :manage, Recipe, user_id: user.id
+      can :read, :all
+    end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

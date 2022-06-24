@@ -1,0 +1,40 @@
+<%= render "shared/header" %>
+  <section class="container">
+
+    <div class="heading">
+      <h1 class="text-center">Shopping List</h1>
+    </div>
+
+    <div class="d-flex justify-content-between mt-5">
+      <p class="fs-4">Amount of food items to buy: <%=@food_count%></p>
+      <p class="fs-4">Total value of food needed: $<%=@total%></p>
+    </div>
+
+    <div class="table mt-4">
+      <table class="table table-bordered">
+        <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+
+        <% @recipe_foods.each do |gk| %>
+          <% if @foods.include?(gk.food)%>
+            <tr>
+              <td><%=gk.food.name%></td>
+              <td><%=Food.find(gk.food_id).measurement_unit%></td>
+              <td> $<%=gk.food.price * gk.quantity%></td>
+            </tr>
+          <%end%>
+        <%end%>
+      </table>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    document.querySelector('.navbar-toggler').addEventListener("click", () => {
+      console.log('yess')
+        $("button.navbar-toggle").toggleClass("collapse");
+    })
+  </script>
+<%= render "shared/footer" %>

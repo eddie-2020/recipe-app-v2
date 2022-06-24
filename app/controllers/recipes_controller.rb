@@ -1,53 +1,46 @@
-class RecipesController < ApplicationController
-  before_action :authenticate_user!, only: %i[index new create destroy]
-
-  load_and_authorize_resource
-
+class RecipesController < ActionController::Base
   def index
-    @recipes = Recipe.where(user_id: current_user&.id)
+    @user = current_user
+    @recipes = @user.recipes.all
   end
 
   def show
-    @recipe = Recipe.find_by(id: params[:id])
-    @recipe_foods = RecipeFood.where(recipe_id: params[:id]).includes([:food])
+    @recipe = Recipe.find(params[:id])
+    @recipe_foods = @recipe.recipeFoods.all
   end
 
   def new
-    if current_user
-      @recipe = Recipe.new
-    else
-      redirect_to root_path, alert: 'You need to login in order to add a recipe'
-    end
+    @user = current_user
+    @recipe = @user.recipes.new
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
-    if @recipe.save
-      redirect_to recipes_path, alert: 'Successfully created recipe'
-    else
-      render :new, alert: 'Could not create recipe'
+    @user = current_user
+    recipe = @user.recipes.new(recipe_params)
+    respond_to do |format|
+      format.html do
+        if recipe.save
+          flash[:success] = 'Recipe created successfully'
+          redirect_to recipes_url
+        else
+          flash.now[:error] = 'Error: Recipe could not be created'
+          render :new
+        end
+      end
     end
   end
 
   def destroy
-    @recipe = Recipe.destroy(params[:id])
-
-    if @recipe.destroyed?
-      redirect_to recipes_path, alert: 'Successfully deleted recipe'
-    else
-      render :new, alert: 'Could not delete recipe'
-    end
-  end
-
-  def public_recipes
-    @recipes = Recipe.where(public: true).order(created_at: :desc)
+    @user = current_user
+    @recipe = @user.recipes.find(params[:id])
+    @recipe.destroy
+    redirect_to recipe_path
+    flash[:success] = 'Recipe was deleted!'
   end
 
   private
 
   def recipe_params
-    recipe_hash = params.require(:recipe).permit(:name, :description, :cooking_time, :preparation_time, :public)
-    recipe_hash[:user] = current_user
-    recipe_hash
+    params.require(:recipe).permit(:name, :preperation_time, :cooking_time, :public, :description)
   end
 end

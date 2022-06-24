@@ -1,56 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe RecipeFood, type: :model do
-  let(:user) do
-    FactoryBot.create(:user, name: 'Edward', email: 'edward@domain.com', password: 'root17',
-                             password_confirmation: 'root17')
+  before(:each) do
+    user1 = User.create! name: 'Justin', password: '000000', email: 'justin@gmail.com',
+                         confirmed_at: Time.now
+    food = Food.new(name: 'Milk', measurement_unit: 'grams', price: '10', user: user1)
+
+    recipe = user1.recipes.new(name: 'Recipe 1', cooking_time: '1 hour', preperation_time: '3 hours',
+                               description: 'a recipe')
+
+    subject { RecipeFood.new(food: food, quantity: 10, recipe: recipe) }
+
+    subject.save
   end
 
-  let(:recipe) do
-    FactoryBot.create(:recipe, name: 'Yara', preparation_time: '20', cooking_time: '15',
-                               description: 'Delicious food', public: true,
-                               user_id: user.id)
-  end
-
-  let(:food) do
-    FactoryBot.create(:food,
-                      name: 'Apple',
-                      measurement_unit: 'grams',
-                      price: 1.15,
-                      user:)
-  end
-
-  let(:recipe_food) do
-    FactoryBot.create(:recipe_food, quantity: 3, food_id: food.id, recipe_id: recipe.id)
-  end
-
-  context 'validation' do
-    it 'should be valid with valid attributes' do
-      expect(recipe_food).to be_valid
-    end
-
-    it 'should be invalid without a quantity' do
-      recipe_food.quantity = nil
-
-      expect(recipe_food).to_not be_valid
-    end
-
-    it 'should be invalid with 0 quantity' do
-      recipe_food.quantity = 0
-
-      expect(recipe_food).to_not be_valid
-    end
-
-    it 'should be invalid without a food_id' do
-      recipe_food.food_id = nil
-
-      expect(recipe_food).to_not be_valid
-    end
-
-    it 'should be invalid without a recipe_id' do
-      recipe_food.recipe_id = nil
-
-      expect(recipe_food).to_not be_valid
-    end
+  it 'quantity cannot be less than 1' do
+    subject.quantity = 0.5
+    expect(subject).to_not be_valid
   end
 end
