@@ -1,11 +1,14 @@
 <nav class="navbar d-flex flex-row justify-content-between navbar-expand-lg navbar-dark bg-dark px-5">
-  <a class="navbar-brand" href="/foods">Super Cook</a>
+  <a class="navbar-brand" href="/">Super Cook</a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
   <div class="collapse navbar-collapse justify-content-end align-items-baseline" id="navbarColor01" style="">
     <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+      <li class="nav-item <%= active_class(root_path) %>">
+        <%= link_to 'Recipes Home', root_path, class: 'nav-link' %>
+      </li>
       <li class="nav-item <%= active_class(foods_path) %>">
         <%= link_to 'Foods', foods_path, class: 'nav-link' %>
       </li>

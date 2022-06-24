@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated  do
-      root to: 'foods#index'
+      root to: 'home#index'
    end
 
   unauthenticated do

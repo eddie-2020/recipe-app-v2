@@ -1,6 +1,6 @@
 <%= render "shared/header" %>
   <section class="container">
-    <div class="">
+    <div class="d-md-flex justify-content-md-end">
       <%= link_to 'foods/new', :remote => true do %>
         <input type="button" class="btn btn-primary mb-3" value="Add Food">
       <% end %>
@@ -26,8 +26,7 @@
           </td>
         </tr>
         <% end %>
-      <% end %>
-
+        <% end %>
       </table>
     </div>
   </section>
